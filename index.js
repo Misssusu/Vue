@@ -1,7 +1,12 @@
 let app = new Vue({
-    el: ".app>div",
+    el: ".app",
     data: {
-        msg: "hello Vue",
-        msg1: "页面加载于" + new Date().toLocaleString()
+        seen: true,
+    }
+})
+let app1 = new Vue({
+    el: ".app1",
+    data: {
+        todos: ['hello','everyone']
     }
 })
