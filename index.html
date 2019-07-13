@@ -10,16 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--条件与循环-->
+<!--处理用户输入-->
 <div class="app">
-    <p v-if="seen">
-        现在你看到我了
-    </p>
+    <p>{{msg}}</p>
+    <button v-on:click="reverseMessage">逆转信息</button>
 </div>
 <div class="app1">
-    <ol>
-        <li v-for="todo in todos">{{todo}}</li>
-    </ol>
+    <p>{{msg}}</p>
+    <input type="text" v-model="msg">
 </div>
 <script src="./index.js"></script>
 </body>

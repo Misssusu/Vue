@@ -1,12 +1,18 @@
 let app = new Vue({
     el: ".app",
     data: {
-        seen: true,
+        msg: 'hello',
+    },
+    methods: {
+        reverseMessage: function(){
+            console.dir(this)   //Vue
+            this.msg = this.msg.split('').reverse().join()
+        }
     }
 })
-let app1 = new Vue({
+let app1= new Vue({
     el: ".app1",
     data: {
-        todos: ['hello','everyone']
+        msg: 'hello v-model'
     }
 })
