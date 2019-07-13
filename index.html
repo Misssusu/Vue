@@ -10,9 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--组件化应用构建-->
+<!--Vue实例-->
+<!--所有的Vue组件都是Vue实例-->
 <div class="app">
-    <todo-item v-bind:fruit="item" v-for="item in fruits"></todo-item>
+    <p>{{a}}</p>
+    <button @click="a += 1">+1</button>
+    <button @click="reduce()">-1</button>
 </div>
 <script src="./index.js"></script>
 </body>
