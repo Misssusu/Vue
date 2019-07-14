@@ -10,60 +10,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--模板语法-->
-<!--插值-->
-
-<!--1.文本-->
-<!--v-once执行一次性的插值，当数据改变时，插值处的内容不会更新-->
-<h2>文本</h2>
+<!--计算属性和侦听器-->
+<!--计算属性-->
+<h2>计算属性</h2>
 <div class="app">
-    <p v-once>这个将不会改变：{{msg}}</p>
-    <p>这个将会改变：{{msg}}</p>
-    <input type="text" v-model="msg">
+    <p>original message: "{{message}}"</p>
+    <p>计算属性reverse message: "{{reverseMessage}}"</p>
+    <p>方法: "{{reverseMessageFn()}}"</p>
+    <h4>计算属性缓存 vs 方法</h4>
+    <p>计算属性是基于它们的依赖进行缓存的，只有在相关依赖发生改变时它们才会重新求值</p>
+    <p>每当触发重新渲染时，调用方法将再次执行函数</p>
 </div>
 
-<!--2.原始HTML-->
-<h2>原始HTML</h2>
-<div class="app2">
-    {{rawHtml}}
-    <div><span v-html="rawHtml"></span></div>
+<div class="app1">
+    <h2>计算属性 vs 侦听属性</h2>
+    <p>侦听属性{{fullNameWatch}}</p>
+    <p>计算属性{{fullName}}</p>
+    <h2>计算属性的setter</h2>
+    <p>计算属性默认只有getter，在需要时也可以设置setter</p>
 </div>
-
-<!--3.HTML特性-->
-<h2>HTML特性</h2>
-<div class="app3">
-    <button v-bind:disabled="btnDisable">按钮1</button>
-    <div v-bind:id="dynamicId">动态的id</div>
-</div>
-
-<!--4.使用JavaScript表达式-->
-<!--注意：-->
-<!--(1)每个绑定只能包含单个表达式-->
-<!--(2)不支持语句如：var a = 1-->
-<!--(3)不支持if()else{}，用三元表达式代替-->
-<!--(4)只能访问全局变量Math和Date-->
-<h2>使用JavaScript表达式</h2>
-<div class="app4">
-    <div>{{number+1}}</div>
-    <div v-bind:id="'list'+ id">使用js表达式的动态id</div>
-</div>
-
-<!--5.指令-->
-<h2>指令</h2>
-<p>接受参数的指令：v-bind:title 和 v-on:click</p>
-<div class="app5">
-    <button v-on:[eventname]="doSomething">动态参数</button>
-    <p v-bind:[attribute]="str">动态参数，动态class</p>
-</div>
-
-<!--6.修饰符-->
-<h2>修饰符</h2>
-<p>修饰符是以.指明的特殊后缀，用于指出一个指令应该以特殊方式绑定</p>
-
-<!--7.缩写-->
-<h2>缩写</h2>
-<p>v-bind:href 缩写 :href</p>
-<p>v-on:click 缩写 @click</p>
 <script src="./index.js"></script>
 </body>
 </html>
