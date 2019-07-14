@@ -10,24 +10,36 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--计算属性和侦听器-->
-<!--计算属性-->
-<h2>计算属性</h2>
+<!--class与style绑定-->
+<!--绑定HTML Class-->
+<h2>绑定HTML Class</h2>
 <div class="app">
-    <p>original message: "{{message}}"</p>
-    <p>计算属性reverse message: "{{reverseMessage}}"</p>
-    <p>方法: "{{reverseMessageFn()}}"</p>
-    <h4>计算属性缓存 vs 方法</h4>
-    <p>计算属性是基于它们的依赖进行缓存的，只有在相关依赖发生改变时它们才会重新求值</p>
-    <p>每当触发重新渲染时，调用方法将再次执行函数</p>
+    <h4>对象语法</h4>
+    <p class="cls" :class="classObj">动态class</p>
+
+    <h4>数组语法</h4>
+    <p>在数组中也可以使用对象语法</p>
+    <p :class="[{activeClass:false},errorClass]">动态class</p>
+
+    <h4>用在组件上</h4>
+    <my-component class="new" :class="classObj"></my-component>
 </div>
 
+<h2>绑定内联样式</h2>
 <div class="app1">
-    <h2>计算属性 vs 侦听属性</h2>
-    <p>侦听属性{{fullNameWatch}}</p>
-    <p>计算属性{{fullName}}</p>
-    <h2>计算属性的setter</h2>
-    <p>计算属性默认只有getter，在需要时也可以设置setter</p>
+    <h4>对象语法</h4>
+    <div :style="{color:'red','font-size':'20px'}">对象语法</div>
+    <div :style="styleObj">对象语法</div>
+    <div :style="[styleObj,newStyle]">数组语法，绑定多个样式对象</div>
+</div>
+
+<h2>自动添加前缀</h2>
+<p>当 v-bind:style 使用需要添加浏览器引擎前缀的 CSS 属性时，如 transform，Vue.js 会自动侦测并添加相应的前缀</p>
+
+<h2>多重值</h2>
+<div class="app2">
+    <div :style="{display: ['-webkite-box','inline-block','flex']}">多重值</div>
+    <p>渲染数组中最后一个被浏览器支持的值，所以是flex</p>
 </div>
 <script src="./index.js"></script>
 </body>
