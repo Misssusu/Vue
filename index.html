@@ -10,49 +10,59 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--条件渲染-->
-<!--v-if-->
-<h2>v-if</h2>
+<!--列表渲染-->
+<h2>v-for</h2>
 <div class="app">
-    <p>v-if用于条件性的渲染一块内容，这块内容只会在指令的表达式返回truthy值的时候被渲染</p>
-    <p>在template元素上使用v-if条件渲染分组，切换多个元素，template元素当作不可见的包裹元素</p>
-    <template v-if="isShow">
-        <p>hello</p>
-        <b>everyone</b>
-    </template>
+    <p>item in items或者item of items</p>
+    <p>v-for作用于数组</p>
+    <p>第一个参数是数组成员</p>
+    <p>第二个参数是索引</p>
+    <ul>
+        <li v-for="(item,index) in items">
+            {{item.message}}
+            {{index}}
+        </li>
+        <li v-for="item of items">
+            {{item.message}}
+        </li>
+    </ul>
+    <p>v-for作用于对象</p>
+    <p>遍历对象时是按照Object.keys()的结果遍历</p>
+    <p>第一个参数是value</p>
+    <p>第二个参数是key</p>
+    <p>第三个参数是索引</p>
+    <ul>
+        <li v-for="(value,key,index) in obj">{{index}}-{{key}}:{{value}}</li>
+    </ul>
     <hr>
-    <p>v-else必须紧跟在v-if或者v-else-if后面，否则它将不会被识别</p>
-    <div v-if="show">现在你能看见我了</div>
-    <div v-else>你看不见我</div>
+    <h4>数组更新检测</h4>
+    <p>变异方法，也会触发视图更新，也会改变这些方法调用的原始数组</p>
+    <p>push() pop() shift() unshift() splice() sort() reverse()</p>
     <hr>
-    <p>v-else-if</p>
-    <div v-if="type == 'A'">A</div>
-    <div v-else-if="type == 'B'">B</div>
-    <div v-else-if="type == 'C'">C</div>
+    <p>替换数组</p>
+    <p>非变异方法，不会改变原始数组，总是返回一个新数组</p>
+    <p>用一个含有相同元素的数组去替换原来的数组是非常高效的操纵</p>
+    <p>filter() concat() slice()</p>
     <hr>
-    <p>用key管理可复用的元素</p>
-    <p>input不加key的时候，会被复用</p>
-    <p>添加一个具有唯一值的key属性，表示这两个元素是完全独立的，不要复用它们</p>
-    <template v-if="loginType == 'username'">
-        <label for="">userName</label>
-        <input type="text" placeholder="输入用户名" key="username">
-    </template>
-    <template v-else-if="loginType == 'Email'">
-        <label for="">Email</label>
-        <input type="text" placeholder="输入邮箱地址" key="email">
-    </template>
-    <button @click="loginType = 'Email'">toggle loginType</button>
+    <p>注意事项</p>
+    <p>以下的变动不是响应式的，不会触发状态更新</p>
+    <p>1.利用索引直接设置一个项时 vm.items[index] = newValue</p>
+    <p>2.修改数组的长度时 vm.items.length = 2</p>
+<!--    splice方法用于删除数组的某些成员，第一个参数是起始位置，第二个参数是删除成员的个数，后面的参数是要插入数组的新成员-->
+    <p>Vue.set(vm.items,index,newValue)或者vm.items.splice(index,1,newValue)或者vm.$set(vm.items,index,newValue)可实现1且是响应式的</p>
+    <p>vm.items.splice(newLength)可实现2且是响应式的</p><!--一个参数，等价于将原数组在指定位置拆分成两个数组-->
     <hr>
-    <h2>v-show</h2>
-    <p>带有v-show的元素始终会被渲染并保留在DOM中，v-show只是简单地切换元素的css属性display</p>
-    <p>v-show不支持template，也不支持v-else</p>
-    <p>如果需要非常频繁地切换，使用v-show比较好</p>
-    <p>如果在运行时条件很少改变，则使用v-if较好</p>
-    <div class="vshow" v-show="vshow">
-        <div>第一个</div>
-        <div>第二个</div>
-        <div>第三个</div>
+    <h4>对象更改检测注意事项</h4>
+    <p>Vue不能检测对象属性的添加或删除，即不是响应式</p>
+    <p>Vue.set(obj,key,value)或者vm.$set(obj,key,value)</p>
+    <hr>
+    <h4>一段取值范围的v-for</h4>
+    <div>
+        <span v-for="n in 10">{{n}}</span>
     </div>
+    <h4>v-for on a template</h4>
+    <h4>v-for with v-if</h4>
+    <p>当v-for与v-if处于同一节点时，v-for的优先级比v-if更高，这意味着v-if将分别重复运行于每个v-for循环中</p>
 </div>
 <script src="./index.js"></script>
 </body>

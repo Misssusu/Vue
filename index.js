@@ -1,11 +1,14 @@
 let app = new Vue({
     el: ".app",
     data: {
-        isShow: true,
-        show: true,
-        type: 'A',
-        loginType: 'username',
-        vshow: true
+        items: [
+            {message: 'Foo'},
+            {message: 'Bar'}
+        ],
+        obj: {
+            name: 'suyuan',
+            age: '18'
+        }
     }
 });
 
