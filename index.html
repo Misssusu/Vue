@@ -10,36 +10,49 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--class与style绑定-->
-<!--绑定HTML Class-->
-<h2>绑定HTML Class</h2>
+<!--条件渲染-->
+<!--v-if-->
+<h2>v-if</h2>
 <div class="app">
-    <h4>对象语法</h4>
-    <p class="cls" :class="classObj">动态class</p>
-
-    <h4>数组语法</h4>
-    <p>在数组中也可以使用对象语法</p>
-    <p :class="[{activeClass:false},errorClass]">动态class</p>
-
-    <h4>用在组件上</h4>
-    <my-component class="new" :class="classObj"></my-component>
-</div>
-
-<h2>绑定内联样式</h2>
-<div class="app1">
-    <h4>对象语法</h4>
-    <div :style="{color:'red','font-size':'20px'}">对象语法</div>
-    <div :style="styleObj">对象语法</div>
-    <div :style="[styleObj,newStyle]">数组语法，绑定多个样式对象</div>
-</div>
-
-<h2>自动添加前缀</h2>
-<p>当 v-bind:style 使用需要添加浏览器引擎前缀的 CSS 属性时，如 transform，Vue.js 会自动侦测并添加相应的前缀</p>
-
-<h2>多重值</h2>
-<div class="app2">
-    <div :style="{display: ['-webkite-box','inline-block','flex']}">多重值</div>
-    <p>渲染数组中最后一个被浏览器支持的值，所以是flex</p>
+    <p>v-if用于条件性的渲染一块内容，这块内容只会在指令的表达式返回truthy值的时候被渲染</p>
+    <p>在template元素上使用v-if条件渲染分组，切换多个元素，template元素当作不可见的包裹元素</p>
+    <template v-if="isShow">
+        <p>hello</p>
+        <b>everyone</b>
+    </template>
+    <hr>
+    <p>v-else必须紧跟在v-if或者v-else-if后面，否则它将不会被识别</p>
+    <div v-if="show">现在你能看见我了</div>
+    <div v-else>你看不见我</div>
+    <hr>
+    <p>v-else-if</p>
+    <div v-if="type == 'A'">A</div>
+    <div v-else-if="type == 'B'">B</div>
+    <div v-else-if="type == 'C'">C</div>
+    <hr>
+    <p>用key管理可复用的元素</p>
+    <p>input不加key的时候，会被复用</p>
+    <p>添加一个具有唯一值的key属性，表示这两个元素是完全独立的，不要复用它们</p>
+    <template v-if="loginType == 'username'">
+        <label for="">userName</label>
+        <input type="text" placeholder="输入用户名" key="username">
+    </template>
+    <template v-else-if="loginType == 'Email'">
+        <label for="">Email</label>
+        <input type="text" placeholder="输入邮箱地址" key="email">
+    </template>
+    <button @click="loginType = 'Email'">toggle loginType</button>
+    <hr>
+    <h2>v-show</h2>
+    <p>带有v-show的元素始终会被渲染并保留在DOM中，v-show只是简单地切换元素的css属性display</p>
+    <p>v-show不支持template，也不支持v-else</p>
+    <p>如果需要非常频繁地切换，使用v-show比较好</p>
+    <p>如果在运行时条件很少改变，则使用v-if较好</p>
+    <div class="vshow" v-show="vshow">
+        <div>第一个</div>
+        <div>第二个</div>
+        <div>第三个</div>
+    </div>
 </div>
 <script src="./index.js"></script>
 </body>
