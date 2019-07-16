@@ -10,59 +10,47 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--列表渲染-->
-<h2>v-for</h2>
+<!--事件处理-->
+<h2>监听事件</h2>
 <div class="app">
-    <p>item in items或者item of items</p>
-    <p>v-for作用于数组</p>
-    <p>第一个参数是数组成员</p>
-    <p>第二个参数是索引</p>
-    <ul>
-        <li v-for="(item,index) in items">
-            {{item.message}}
-            {{index}}
-        </li>
-        <li v-for="item of items">
-            {{item.message}}
-        </li>
-    </ul>
-    <p>v-for作用于对象</p>
-    <p>遍历对象时是按照Object.keys()的结果遍历</p>
-    <p>第一个参数是value</p>
-    <p>第二个参数是key</p>
-    <p>第三个参数是索引</p>
-    <ul>
-        <li v-for="(value,key,index) in obj">{{index}}-{{key}}:{{value}}</li>
-    </ul>
+    <h4>内联处理器中的方法</h4>
+    <button @click="submit($event)">传入事件对象</button>
+    <br>
     <hr>
-    <h4>数组更新检测</h4>
-    <p>变异方法，也会触发视图更新，也会改变这些方法调用的原始数组</p>
-    <p>push() pop() shift() unshift() splice() sort() reverse()</p>
-    <hr>
-    <p>替换数组</p>
-    <p>非变异方法，不会改变原始数组，总是返回一个新数组</p>
-    <p>用一个含有相同元素的数组去替换原来的数组是非常高效的操纵</p>
-    <p>filter() concat() slice()</p>
-    <hr>
-    <p>注意事项</p>
-    <p>以下的变动不是响应式的，不会触发状态更新</p>
-    <p>1.利用索引直接设置一个项时 vm.items[index] = newValue</p>
-    <p>2.修改数组的长度时 vm.items.length = 2</p>
-<!--    splice方法用于删除数组的某些成员，第一个参数是起始位置，第二个参数是删除成员的个数，后面的参数是要插入数组的新成员-->
-    <p>Vue.set(vm.items,index,newValue)或者vm.items.splice(index,1,newValue)或者vm.$set(vm.items,index,newValue)可实现1且是响应式的</p>
-    <p>vm.items.splice(newLength)可实现2且是响应式的</p><!--一个参数，等价于将原数组在指定位置拆分成两个数组-->
-    <hr>
-    <h4>对象更改检测注意事项</h4>
-    <p>Vue不能检测对象属性的添加或删除，即不是响应式</p>
-    <p>Vue.set(obj,key,value)或者vm.$set(obj,key,value)</p>
-    <hr>
-    <h4>一段取值范围的v-for</h4>
-    <div>
-        <span v-for="n in 10">{{n}}</span>
+    <h4>事件修饰符</h4>
+    <div @click="isClick" style="border:1px solid red;padding:50px;">
+        <div href="" @click.stop="doThis">.stop 阻止单击事件继续传播(事件冒泡)</div>
+        <a href="" @click.prevent="doThis">.prevent 阻止默认事件</a>
+        <div @click.capture="doThis">.capture事件在捕获阶段触发</div>
+        <div @click.self="doThis" style="border:1px solid red;padding: 20px">
+            .self 只有在event.targrt是当前元素自身时触发处理函数
+            <div style="border:1px solid red">.self child</div>
+        </div>
+        <div @click.once="doThis">.once 事件只触发一次</div>
+        <a href="" @click.passive="doThis">.passive 不阻止默认事件</a>
     </div>
-    <h4>v-for on a template</h4>
-    <h4>v-for with v-if</h4>
-    <p>当v-for与v-if处于同一节点时，v-for的优先级比v-if更高，这意味着v-if将分别重复运行于每个v-for循环中</p>
+    <br>
+    <hr>
+    <h4>按键修饰符</h4>
+    <p>监听键盘事件v-on:keyup</p>
+    <input type="text" @keyup.enter="enterSubmit" placeholder=".enter">
+    <p>keyboardEvent.key暴露的任意有效按键名转为keybab-case来作为修饰符</p>
+    <input type="text" @keyup.backspace="backSpaceFn" placeholder=".backspace">
+    <p>按键码，通过全局config.keyCodes对象自定义按键修饰符别名</p>
+    <p>Vue.config.keyCodes.f1 = 112</p>
+    <br>
+    <hr>
+    <h4>系统修饰符</h4>
+    <p>.ctrl</p>
+    <p>.alt</p>
+    <p>.shift</p>
+    <p>.meta</p>
+    <p>.exact</p>
+    <button @click.ctrl.exact="onCtrlPress">ctrl</button>
+    <p>鼠标按键修饰符</p>
+    <p @click.left="leftPress">.left</p>
+    <p>.right</p>
+    <p>.middle</p>
 </div>
 <script src="./index.js"></script>
 </body>
