@@ -10,63 +10,45 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--表单输入绑定-->
-<h2>表单输入绑定</h2>
+<!--组建基础-->
+<p>组件是可复用的Vue实例，所以它们与new Vue()接收相同的选项</p>
+<h2>组件的复用</h2>
 <div class="app">
-    <h4>文本</h4>
-    <span>{{inoutText}}</span>
-    <input type="text" v-model="inoutText">
-    <hr>
-    <h4>多行文本</h4>
-    <p>{{text}}</p>
-    <textarea name="" id="" cols="30" rows="10" v-model="text"></textarea>
-    <hr>
-    <h4>复选框</h4>
-    <input type="checkbox" id="checkbox" v-model="checked">
-    <label for="checkbox">单个复选框{{checked}}</label>
-    <p>多个复选框绑定到同一个数组</p>
-    <div>
-        <input type="checkbox" name="" id="mike" v-model="checkedNames" value="mike">
-        <label for="mike">mike</label>
-        <input type="checkbox" name="" id="susu" v-model="checkedNames" value="susu">
-        <label for="susu">susu</label>
-        <input type="checkbox" name="" id="jack" v-model="checkedNames" value="jack">
-        <label for="jack">jack</label>
-        <br>
-        <span>Checked Names: {{checkedNames}}</span>
+    <h4>一个组件的data选项必须是一个函数</h4>
+    <span>每个实例可以维护一份被返回对象的独立的拷贝</span>
+    <h4>组件的注册</h4>
+    <ul>
+        <li>全局注册</li>
+        <span>Vue.component()</span>
+        <li>局部注册</li>
+    </ul>
+    <h4>通过Prop向子组件传递数据</h4>
+    <h4 style="color:red">监听子组件事件</h4>
+    <p>父组件通过v-on监听子组件实例的任意事件</p>
+    <p>子组件通过调用内建的$emit方法并传入事件名称来触发一个事件</p>
+    <div :style="{fontSize:postFontsize + 'em'}">
+        <blog-post
+                v-for="post in posts"
+                :post="post"
+                :key="post.id"
+                @enlarge-text="btnClick"
+        ></blog-post>
     </div>
     <hr>
-    <h4>单选按钮</h4>
-    <div>
-        <input type="radio" name="" id="one" value="one" v-model="picked">
-        <label for="one">One</label>
-        <input type="radio" name="" id="two" value="two" v-model="picked">
-        <label for="two">Two</label>
-        <br>
-        <span>Picked:{{picked}}</span>
-    </div>
+    <p>使用事件抛出一个值</p>
+    <p>如果事件处理函数是一个方法，使用$emit的第二个参数来给父组件监听的事件传入参数</p>
+    <p>如果事件处理函数是一段js表达式，使用$event访问传出来的参数</p>
     <hr>
-    <h4>下拉选择</h4>
-    <div>
-        <select name="" v-model="selected">
-            <option value="" disabled="disabled">请选择</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-        </select>
-        <span>selected: {{selected}}</span>
-    </div>
+    <p>在组建上使用v-model</p>
+    <custom-input v-model="searchText"></custom-input>
     <hr>
-    <h4>修饰符</h4>
-    <p>.lazy 使用change事件进行同步</p>
-    <input type="text" v-model.lazy="msg">
-    <span>{{msg}}</span>
-    <p>.number 将输入值转为数值类型(number)</p>
-    <input type="number" v-model.number="numberInput">
-    <span>{{numberInput}}</span>
-    <p>.trim 自动过滤用户输入的首尾空白字符</p>
-    <input type="text" v-model.trim="trimText">
-    <span>{{trimText}}</span>
+    <p>通过插槽分发内容</p>
+    <alert-box>通过slot元素向一个组件传递内容</alert-box>
+    <hr>
+    <p>解析DOM模板时的注意事项</p>
+    <table>
+        <tr is="blog-post-row"></tr>
+    </table>
 </div>
 <script src="./index.js"></script>
 </body>
