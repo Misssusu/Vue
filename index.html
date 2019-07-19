@@ -10,75 +10,39 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--深入了解组件-->
-<h2>组件注册</h2>
+<h2>自定义指令</h2>
 <div class="app">
-    <h4>组件名</h4>
-    <p>定义组建名的两种方式</p>
+    <input type="text" v-focus>
+    <h4>指令对象的钩子函数</h4>
+    <p>1.bind</p>
+    <p>只调用一次，指令第一次绑定到元素时调用。可以进行一次性的初始化设置</p>
+    <p>2.inserted</p>
+    <p>被绑定元素插入父节点时调用(仅保证父节点存在，但不一定已被插入文档中)</p>
+    <p>3.update</p>
+    <p>所在组件的VNode更新时调用，但可能发生在其子VNode更新之前</p>
+    <p>4.componentUpdated</p>
+    <p>指令所在组件的VNode及其子VNode全部更新后调用</p>
+    <p>5.unbind</p>
+    <p>只调用一次，指令与元素解绑时调用</p>
+    <h4>钩子函数参数</h4>
+    <p>1.el</p>
+    <p>指令所绑定的元素，可以用来直接操作DOM</p>
+    <p>2.binding</p>
+    <p>一个对象，包含以下属性</p>
     <ul>
-        <li>kebab-case 短横线分割命名</li>
-        <li>PascalCase 首字母大写命名</li>
+        <li>name：指令名，不包括v-前缀</li>
+        <li>value：指令的绑定值</li>
+        <li>oldValue：指令绑定的前一个值，仅在update和componentUpdated钩子中可用，无论值是否改变都可用</li>
+        <li>expression：字符串形式的指令表达式</li>
+        <li>arg：传给指令的参数</li>
+        <li>modifires：一个包含修饰符的对象</li>
     </ul>
-    <h4>局部注册</h4>
-    <component-a-glb>
-        <component-b-glb></component-b-glb>
-    </component-a-glb>
-    <component-a>
-        ff
-<!--        <component-b></component-b>-->
-    </component-a>
-    <h2>Prop</h2>
-    <p>prop的大小写</p>
-    <p>在js中是驼峰命名法</p>
-    <p>在HTML中是短横线分割法</p>
-    <blog-post post-title="hello"></blog-post>
-    <hr>
-    <h2>自定义事件</h2>
-    <h4>将原生事件绑定到组件</h4>
-    <p>使用.native修饰符</p>
-    <hr>
-    <h2>插槽</h2>
-    <h4>slot标签</h4>
-    <h4>编译作用域</h4>
-    <p>父级模板里的所有内容都是在父级作用域中编译的</p>
-    <p>子模板里的所有内容都是在子作用域中编译的</p>
-    <h4>后备内容</h4>
-    <p>给slot标签设置初始内容，当使用组建不提供插槽内容时默认显示初始内容，当提供插槽内容，则会被渲染并取代初始内容</p>
-    <h4>具名插槽</h4>
-    <p>给slot标签添加上name="xx"，不添加name默认值是default</p>
-    <p>在template元素上添加v-slot="xx",这样template元素中的所有内容都会被传入相应的插槽</p>
-    <h4>作用域插槽</h4>
-    <p>在父级作用域中使用组件，想要访问组件中的某个变量</p>
-    <ul>
-        <li>1.在组件中的slot元素上使用v-bind:user="user"将user变量传递出去</li>
-        <li>2.在父作用域中使用template元素使用v-slot:default="slotProps"用来接收变量，slotProps就是user变量</li>
-    </ul>
-    <p>独占默认插槽的缩写语法</p>
-    <p>上面第二步，如果组件内部只有默认插槽时，可以在组件的标签上添加v-slot="slotProps"</p>
-    <p>注意：默认插槽的缩写语法不能和具名插槽混用，会导致作用域不明确</p>
-    <hr>
-    <p>解构插槽Prop</p>
-    <p>作用域插槽的工作原理是将插槽内容包括在一个传入单个参数的函数里</p>
-    <h4>动态插槽名</h4>
-    <p>定义动态的插槽名 v-slot:[dynamicSlotName]</p>
-    <h4>具名插槽的缩写</h4>
-    <p>(v-slot:)代替为#</p>
-    <h2>处理边界情况</h2>
-    <h4>访问元素&组件</h4>
-    <p>$root访问根实例</p>
-    <p>$parent访问父级组件实例</p>
-    <p>在组件上使用ref="xxx"，使用this.$refs.xxx访问子组件实例或子元素</p>
-    <p>依赖注入</p>
-    <ul>
-        <li>provide设置提供给后代组件的数据/方法</li>
-        <li>inject在后代组件里接收</li>
-    </ul>
-    <h2>程序化的事件监听器</h2>
-    <ul>
-        <li>通过 $on(eventName, eventHandler) 侦听一个事件</li>
-        <li>通过 $once(eventName, eventHandler) 一次性侦听一个事件</li>
-        <li>通过 $off(eventName, eventHandler) 停止侦听一个事件</li>
-    </ul>
+    <p>3.vnode</p>
+    <p>Vue编译生成的虚拟节点</p>
+    <p>4.oldVnode</p>
+    <p>上一个虚拟节点，仅在update和componentUpdated狗子中可用</p>
+    <p>5.对象字面量</p>
+    <p>如果指令需要多个值，可以传入一个JavaScript对象字面量</p>
 </div>
 <script src="./index.js"></script>
 </body>

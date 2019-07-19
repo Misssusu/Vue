@@ -1,29 +1,15 @@
-var componentB = {
-    template: `<div>conponentB</div>`
-};
-var componentA = {
-    template: `<div>conponentA<slot></slot><component-b></component-b></div>`,
-    components: {
-        'component-b': componentB
-    }
-};
 
-Vue.component('component-a-glb',{
-    template: `<div>global conponentA<slot></slot></div>`
-});
-Vue.component('component-b-glb',{
-    template: `<div>global conponentB</div>`
-});
-Vue.component('blog-post',{
-    props: ['postTitle'],
-    template: `<div>{{postTitle}}</div>`
-});
-let app = new Vue({
-    el: ".app",
-    components: {
-        'component-b': componentB,
-        'component-a': componentA
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('focus', {
+    // 当被绑定的元素插入到 DOM 中时……
+    inserted: function (el) {
+        // 聚焦元素
+        console.log(el)
+        el.focus()
     }
+})
+let app = new Vue({
+    el: ".app"
 });
 
 
